@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Created by 程浩 on 2020/11/25
+ *
+ * @author howey
  */
 public class JdbcSpitterRepository implements SpitterRepository {
     private JdbcTemplate jdbcTemplate;
@@ -27,9 +29,9 @@ public class JdbcSpitterRepository implements SpitterRepository {
         return null;
     }
 
-    public Spitter findOne(long id) {
+    public Spitter findOne(int id) {
         return jdbcTemplate.queryForObject(
-                SELECT_SPITTER + " where id=?", new SpitterRowMapper(), id);
+                SELECT_SPITTER + " where project_id =?", new SpitterRowMapper(), id);
     }
 
     public Spitter findByUsername(String username) {
@@ -42,17 +44,15 @@ public class JdbcSpitterRepository implements SpitterRepository {
 
     private static final class SpitterRowMapper implements RowMapper<Spitter> {
         public Spitter mapRow(ResultSet rs, int rowNum) throws SQLException {
-            long id = rs.getLong("id");
-            String username = rs.getString("username");
-            String password = rs.getString("password");
-            String fullName = rs.getString("fullname");
-            String email = rs.getString("email");
-            boolean updateByEmail = rs.getBoolean("updateByEmail");
-            return new Spitter(id, username, password, fullName, email, updateByEmail);
+            int projectId = rs.getInt("project_id");
+            String name = rs.getString("name");
+            String description = rs.getString("description");
+            String createUser = rs.getString("create_user");
+            return new Spitter(projectId, name, description, createUser);
         }
     }
 
-    private static final String INSERT_SPITTER = "insert into Spitter (username, password, fullname, email, updateByEmail) values (?, ?, ?, ?, ?)";
+    private static final String INSERT_SPITTER = "insert into Spitter (project_id, name, description, create_user) values (?, ?, ?, ?, ?)";
 
-    private static final String SELECT_SPITTER = "select id, username, password, fullname, email, updateByEmail from Spitter";
+    private static final String SELECT_SPITTER = "select project_id, name, description, create_user from project";
 }

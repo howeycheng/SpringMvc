@@ -1,8 +1,10 @@
 package spitter.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import spitter.domain.Spitter;
+import spitter.service.UserServiceImpl;
 
 
 /**
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class HomeController {
-    @RequestMapping(value = "/")
-    public String home(@RequestParam("id") int id) {
-        return id + "";
+    @Autowired
+    private UserServiceImpl userService;
+
+    @RequestMapping(value = "/", produces = "text/html;charset=utf-8")
+    public String home() {
+        return userService.findOne(28).getName();
     }
 }

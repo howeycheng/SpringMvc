@@ -1,45 +1,36 @@
 package spitter.domain;
 
+/**
+ * @author howey
+ */
 public class Spitter {
-  
-  private Long id;
-  private String username;
-  private String password;
-  private String fullName;
-  private String email;
-  private boolean updateByEmail;
 
-  public Spitter(Long id, String username, String password, String fullName, String email, boolean updateByEmail) {
-    this.id = id;
-    this.username = username;
-    this.password = password;
-    this.fullName = fullName;
-    this.email = email;
-    this.updateByEmail = updateByEmail;
-  }
+    private int projectId;
+    private String name;
+    private String description;
+    private String createUser;
 
-  public Long getId() {
-    return id;
-  }
+    public Spitter(int projectId, String name, String description, String createUser) {
+        this.projectId = projectId;
+        this.name = name;
+        this.description = description;
+        this.createUser = createUser;
+    }
 
-  public String getUsername() {
-    return username;
-  }
+    public int getProjectId() {
+        return projectId;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getFullName() {
-    return fullName;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public boolean isUpdateByEmail() {
-    return updateByEmail;
-  }
+    public String getCreateUser() {
+        return createUser;
+    }
 
 }
